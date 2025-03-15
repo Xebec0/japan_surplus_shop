@@ -234,8 +234,8 @@
                                 {% if product.images.exists %}
                                     <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="h-full w-full object-cover">
                                 {% else %}
-                                    <div class="h-full flex items-center justify-center">
-                                        <i class="fas fa-image text-4xl text-gray-400"></i>
+                                    <div class="h-full w-full">
+                                        {% include 'products/product_placeholder.html' with use_svg=True category=product.category.name|default:"general"|lower %}
                                     </div>
                                 {% endif %}
                                 <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs px-2 py-1">
@@ -337,8 +337,8 @@
                             {% if product.images.exists %}
                                 <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="h-full w-full object-cover">
                             {% else %}
-                                <div class="h-full flex items-center justify-center">
-                                    <i class="fas fa-image text-4xl text-gray-400"></i>
+                                <div class="h-full w-full">
+                                    {% include 'products/product_placeholder.html' %}
                                 </div>
                             {% endif %}
                         </div>

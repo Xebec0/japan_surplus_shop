@@ -1,0 +1,49 @@
+{% comment %}
+This is a reusable template for displaying SVG product placeholders.
+Usage:
+    {% include 'products/product_svg_placeholder.html' with category="electronics" %}
+    
+Parameters:
+    - category: The product category (electronics, furniture, kitchenware, fashion, or general)
+    - size_class: Optional CSS classes for sizing (default: "w-full h-full")
+    - color_class: Optional CSS classes for coloring (default: "text-orange-500")
+{% endcomment %}
+
+{% with category=category|default:"general" %}
+<div class="{{ size_class|default:'w-full h-full' }} flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+    {% if category == "electronics" %}
+        <!-- Electronics SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="{{ size_class|default:'w-24 h-24' }} {{ color_class|default:'text-orange-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+    {% elif category == "furniture" %}
+        <!-- Furniture SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="{{ size_class|default:'w-24 h-24' }} {{ color_class|default:'text-orange-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12V8.5C20 6.01 17.99 4 15.5 4S11 6.01 11 8.5V9h2.5c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2h-10c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2H6V8.5C6 3.91 9.91 0 15.5 0S25 3.91 25 8.5V12" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 19v2M20 19v2" />
+        </svg>
+    {% elif category == "kitchenware" %}
+        <!-- Kitchenware SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="{{ size_class|default:'w-24 h-24' }} {{ color_class|default:'text-orange-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v7M21 15c0 3.87-3.13 7-7 7s-7-3.13-7-7M17 8l-5.33 5.33M14 5l3 3-3 3" />
+        </svg>
+    {% elif category == "fashion" %}
+        <!-- Fashion SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="{{ size_class|default:'w-24 h-24' }} {{ color_class|default:'text-orange-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4M3 6h18M16 10a4 4 0 11-8 0" />
+        </svg>
+    {% else %}
+        <!-- General Product SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="{{ size_class|default:'w-24 h-24' }} {{ color_class|default:'text-orange-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+    {% endif %}
+    
+    <!-- Japan Surplus Logo -->
+    <div class="absolute bottom-2 right-2 bg-white dark:bg-gray-800 rounded-full p-1 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+    </div>
+</div>
+{% endwith %} 

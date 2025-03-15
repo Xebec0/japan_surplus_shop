@@ -271,10 +271,8 @@
                                 {% if product.image %}
                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover">
                                 {% else %}
-                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                                    <span class="text-gray-500 dark:text-gray-400">
-                                        <i class="fas fa-image text-4xl"></i>
-                                    </span>
+                                <div class="absolute inset-0 w-full h-full">
+                                    {% include 'products/product_placeholder.html' with use_svg=True category=product.category.name|default:"general"|lower %}
                                 </div>
                                 {% endif %}
                                 {% if product.discount_percentage > 0 %}

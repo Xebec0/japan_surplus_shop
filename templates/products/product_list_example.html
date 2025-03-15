@@ -45,10 +45,10 @@
                 </div>
             </div>
             
-            <!-- More product examples with different placeholder indices -->
+            <!-- Example of using SVG placeholder for electronics -->
             <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                <div class="h-64 overflow-hidden">
-                    {% include 'products/product_placeholder.html' with index=3 %}
+                <div class="h-64 overflow-hidden relative">
+                    {% include 'products/product_placeholder.html' with use_svg=True category="electronics" %}
                 </div>
                 <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Japanese Tea Set</h3>
@@ -62,9 +62,10 @@
                 </div>
             </div>
             
+            <!-- Example of using SVG placeholder for fashion -->
             <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                <div class="h-64 overflow-hidden">
-                    {% include 'products/product_placeholder.html' with index=4 %}
+                <div class="h-64 overflow-hidden relative">
+                    {% include 'products/product_placeholder.html' with use_svg=True category="fashion" %}
                 </div>
                 <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Japanese Folding Fan</h3>
@@ -78,9 +79,10 @@
                 </div>
             </div>
             
+            <!-- Example of using SVG placeholder for kitchenware -->
             <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                <div class="h-64 overflow-hidden">
-                    {% include 'products/product_placeholder.html' with index=5 %}
+                <div class="h-64 overflow-hidden relative">
+                    {% include 'products/product_placeholder.html' with use_svg=True category="kitchenware" %}
                 </div>
                 <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Japanese Coffee Maker</h3>
@@ -94,9 +96,10 @@
                 </div>
             </div>
             
+            <!-- Example of using SVG placeholder for furniture -->
             <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                <div class="h-64 overflow-hidden">
-                    {% include 'products/product_placeholder.html' with index=6 %}
+                <div class="h-64 overflow-hidden relative">
+                    {% include 'products/product_placeholder.html' with use_svg=True category="furniture" %}
                 </div>
                 <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Japanese Knife Set</h3>
@@ -110,6 +113,7 @@
                 </div>
             </div>
             
+            <!-- Example of using placeholder with specific index -->
             <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
                 <div class="h-64 overflow-hidden">
                     {% include 'products/product_placeholder.html' with index=7 %}
@@ -126,9 +130,10 @@
                 </div>
             </div>
             
+            <!-- Example of using SVG placeholder with general category -->
             <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                <div class="h-64 overflow-hidden">
-                    {% include 'products/product_placeholder.html' with index=8 %}
+                <div class="h-64 overflow-hidden relative">
+                    {% include 'products/product_placeholder.html' with use_svg=True %}
                 </div>
                 <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Japanese Futon Set</h3>

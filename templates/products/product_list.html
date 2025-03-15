@@ -215,10 +215,8 @@
                                 {% if product.image %}
                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover">
                                 {% else %}
-                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                                    <span class="text-gray-500 dark:text-gray-400">
-                                        <i class="fas fa-image text-4xl"></i>
-                                    </span>
+                                <div class="absolute inset-0 w-full h-full">
+                                    {% include 'products/product_placeholder.html' with use_svg=True category=product.category.name|default:"general"|lower %}
                                 </div>
                                 {% endif %}
                                 {% if product.discount_percentage > 0 %}
@@ -253,11 +251,7 @@
                     <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <a href="#">
                             <div class="relative pb-[100%]">
-                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                                    <span class="text-gray-500 dark:text-gray-400">
-                                        <i class="fas fa-image text-4xl"></i>
-                                    </span>
-                                </div>
+                                {% include 'products/product_placeholder.html' with index=1 %}
                                 <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
                                     -20%
                                 </div>
@@ -282,11 +276,7 @@
                     <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <a href="#">
                             <div class="relative pb-[100%]">
-                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                                    <span class="text-gray-500 dark:text-gray-400">
-                                        <i class="fas fa-image text-4xl"></i>
-                                    </span>
-                                </div>
+                                {% include 'products/product_placeholder.html' with index=2 %}
                             </div>
                             <div class="p-4">
                                 <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">Vintage Japanese Denim Jacket</h3>
@@ -307,14 +297,7 @@
                     <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <a href="#">
                             <div class="relative pb-[100%]">
-                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                                    <span class="text-gray-500 dark:text-gray-400">
-                                        <i class="fas fa-image text-4xl"></i>
-                                    </span>
-                                </div>
-                                <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                                    -15%
-                                </div>
+                                {% include 'products/product_placeholder.html' with use_svg=True category="kitchenware" %}
                             </div>
                             <div class="p-4">
                                 <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">Toyota Genuine Spare Parts Kit</h3>
@@ -336,11 +319,7 @@
                     <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <a href="#">
                             <div class="relative pb-[100%]">
-                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                                    <span class="text-gray-500 dark:text-gray-400">
-                                        <i class="fas fa-image text-4xl"></i>
-                                    </span>
-                                </div>
+                                {% include 'products/product_placeholder.html' with index=3 %}
                             </div>
                             <div class="p-4">
                                 <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">Japanese Ceramic Tea Set</h3>
