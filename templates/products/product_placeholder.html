@@ -1,0 +1,25 @@
+{% load static %}
+{% load product_tags %}
+
+{% comment %}
+This is a reusable template for displaying product placeholders.
+Usage:
+    {% include 'products/product_placeholder.html' with index=1 %}
+    
+Parameters:
+    - index: A number from 1 to 12 to select which placeholder image to use
+    - size_class: Optional CSS classes for sizing (default: "w-full h-full")
+    - alt_text: Optional alt text (default: "Product Image")
+{% endcomment %}
+
+{% if not index %}
+    {% with index=1|random_int:12 %}
+        <img src="{% static 'images/product-placeholder-'|add:index|stringformat:'s'|add:'.jpg' %}" 
+             alt="{{ alt_text|default:'Product Image' }}" 
+             class="{{ size_class|default:'w-full h-full' }} object-cover">
+    {% endwith %}
+{% else %}
+    <img src="{% static 'images/product-placeholder-'|add:index|stringformat:'s'|add:'.jpg' %}" 
+         alt="{{ alt_text|default:'Product Image' }}" 
+         class="{{ size_class|default:'w-full h-full' }} object-cover">
+{% endif %} 

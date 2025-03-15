@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Sign In" %} - Japan Surplus Shop{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 dark:bg-gray-800 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="flex justify-center">
+            <a href="{% url 'core:home' %}" class="text-blue-600 dark:text-blue-400 text-4xl font-bold">
+                Japan Surplus
+            </a>
+        </div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+            {% trans "Sign In to Your Account" %}
+        </h2>
+        <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            {% trans "Or" %}
+            <a href="{% url 'account_signup' %}" class="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
+                {% trans "create a new account" %}
+            </a>
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white dark:bg-gray-700 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <form class="space-y-6" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="rounded-md bg-red-50 dark:bg-red-900 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-circle text-red-400 dark:text-red-300"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800 dark:text-red-200">
+                                {% trans "There were errors with your submission" %}
+                            </h3>
+                            <div class="mt-2 text-sm text-red-700 dark:text-red-300">
+                                <ul class="list-disc pl-5 space-y-1">
+                                    {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div>
+                    <label for="id_login" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {% trans "Username or Email" %}
+                    </label>
+                    <div class="mt-1">
+                        <input id="id_login" name="login" type="text" autocomplete="email" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white sm:text-sm">
+                        {% if form.login.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.login.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    <label for="id_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {% trans "Password" %}
+                    </label>
+                    <div class="mt-1">
+                        <input id="id_password" name="password" type="password" autocomplete="current-password" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white sm:text-sm">
+                        {% if form.password.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="id_remember" name="remember" type="checkbox"
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-800">
+                        <label for="id_remember" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                            {% trans "Remember me" %}
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="{% url 'account_reset_password' %}" class="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
+                            {% trans "Forgot your password?" %}
+                        </a>
+                    </div>
+                </div>
+
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800">
+                        {% trans "Sign In" %}
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+                            {% trans "Or continue with" %}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <div>
+                        <a href="{% url 'account_login' %}?next={{ request.path }}&process=facebook"
+                            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <i class="fab fa-facebook-f text-blue-600 dark:text-blue-400 mr-2"></i>
+                            <span>Facebook</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{% url 'account_login' %}?next={{ request.path }}&process=google"
+                            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <i class="fab fa-google text-red-600 dark:text-red-400 mr-2"></i>
+                            <span>Google</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

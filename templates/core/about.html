@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Japan Surplus Shop{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 dark:bg-gray-800">
+    <!-- Main content -->
+    <div class="container mx-auto py-8 px-4">
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
+            <div class="md:flex">
+                <div class="md:w-1/2">
+                    <img src="{% static 'images/about-banner.jpg' %}" alt="Japan Surplus Shop" class="w-full h-full object-cover">
+                </div>
+                <div class="md:w-1/2 p-8">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">About Japan Surplus Shop</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Welcome to Japan Surplus Shop, your premier destination for high-quality Japanese surplus items. 
+                        Established in 2020, we specialize in bringing authentic Japanese products to customers worldwide 
+                        at affordable prices.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Our mission is to provide access to Japan's renowned quality products while promoting 
+                        sustainability through the reuse and repurposing of surplus items. We carefully select each 
+                        product in our inventory to ensure it meets our high standards of quality and value.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Our Story Section -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Our Story</h2>
+            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-8">
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Japan Surplus Shop was born from a passion for Japanese craftsmanship and quality. Our founder, 
+                    during a trip to Japan, was impressed by the exceptional quality of everyday items and the 
+                    Japanese concept of "mottainai" (avoiding waste). This inspired the creation of a business that 
+                    would bring these high-quality surplus items to a global market.
+                </p>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Starting with a small collection of household items, we have grown to offer a wide range of 
+                    products including electronics, kitchenware, furniture, clothing, and more. Each item in our 
+                    inventory tells a story of Japanese innovation, design, and quality.
+                </p>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Today, we continue to expand our offerings while maintaining our commitment to quality, 
+                    sustainability, and customer satisfaction. We're proud to be a bridge between Japanese surplus 
+                    goods and appreciative customers around the world.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Our Values Section -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Our Values</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center">
+                    <div class="w-16 h-16 mx-auto bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-check-circle text-2xl text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Quality</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We carefully inspect and select each item to ensure it meets our high standards of quality and functionality.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center">
+                    <div class="w-16 h-16 mx-auto bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-leaf text-2xl text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Sustainability</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        By giving surplus items a second life, we contribute to reducing waste and promoting sustainable consumption.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center">
+                    <div class="w-16 h-16 mx-auto bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-heart text-2xl text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Customer Satisfaction</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We are committed to providing excellent service and ensuring our customers are happy with their purchases.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="mt-12 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Contact Us</h2>
+            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Get In Touch</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            We'd love to hear from you! Whether you have questions about our products, need assistance with an order, 
+                            or want to provide feedback, our team is here to help.
+                        </p>
+                        <div class="space-y-2">
+                            <p class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-map-marker-alt w-6 text-orange-600 dark:text-orange-400"></i>
+                                123 Surplus Street, Metro Manila, Philippines
+                            </p>
+                            <p class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-phone w-6 text-orange-600 dark:text-orange-400"></i>
+                                +63 123 456 7890
+                            </p>
+                            <p class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-envelope w-6 text-orange-600 dark:text-orange-400"></i>
+                                info@japansurplusshop.com
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Business Hours</h3>
+                        <div class="space-y-2 text-gray-600 dark:text-gray-300">
+                            <p class="flex justify-between">
+                                <span>Monday - Friday:</span>
+                                <span>9:00 AM - 6:00 PM</span>
+                            </p>
+                            <p class="flex justify-between">
+                                <span>Saturday:</span>
+                                <span>10:00 AM - 4:00 PM</span>
+                            </p>
+                            <p class="flex justify-between">
+                                <span>Sunday:</span>
+                                <span>Closed</span>
+                            </p>
+                        </div>
+                        <div class="mt-6">
+                            <h4 class="font-medium text-gray-900 dark:text-white mb-2">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300">
+                                    <i class="fab fa-facebook-f text-xl"></i>
+                                </a>
+                                <a href="#" class="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                                <a href="#" class="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                                <a href="#" class="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300">
+                                    <i class="fab fa-youtube text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

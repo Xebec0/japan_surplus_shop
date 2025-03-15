@@ -1,0 +1,400 @@
+{% extends 'base.html' %}
+
+{% block title %}Japan Surplus Shop - Online Shopping{% endblock %}
+
+{% block extra_css %}
+<style>
+    .banner-slide {
+        height: 235px;
+    }
+    .category-icon {
+        transition: all 0.2s;
+    }
+    .category-icon:hover {
+        transform: translateY(-5px);
+    }
+    .flash-sale-timer {
+        background: rgba(255,255,255,0.9);
+        border-radius: 12px;
+        padding: 2px 8px;
+        font-weight: bold;
+    }
+    .product-card {
+        transition: all 0.2s;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Search Bar Banner (Similar to Shopee but blue) -->
+    <div class="bg-blue-600 py-3 -mt-6 mb-4 rounded-b-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="hidden md:block text-white text-sm">
+                    <a href="#" class="hover:underline mr-4">Seller Centre</a>
+                    <a href="#" class="hover:underline mr-4">Start Selling</a>
+                    <a href="#" class="hover:underline mr-4">Download</a>
+                    <span class="mr-4">Follow us on 
+                        <i class="fab fa-facebook mx-1"></i>
+                        <i class="fab fa-instagram mx-1"></i>
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center text-white text-sm">
+                    <a href="#" class="hover:underline mr-4"><i class="far fa-bell mr-1"></i> Notifications</a>
+                    <a href="#" class="hover:underline mr-4"><i class="far fa-question-circle mr-1"></i> Help</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Banner Carousel -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+        <!-- Main Carousel (3/4 width on desktop) -->
+        <div class="lg:col-span-3 rounded-lg overflow-hidden shadow-md">
+            <div x-data="{ activeSlide: 0 }" class="relative">
+                <!-- Slides -->
+                <div class="overflow-hidden relative">
+                    <div class="flex transition-transform duration-500 ease-in-out" :style="`transform: translateX(-${activeSlide * 100}%)`">
+                        <!-- Slide 1 -->
+                        <div class="w-full flex-shrink-0">
+                            <div class="banner-slide bg-green-400 flex items-center justify-center relative">
+                                <img src="https://via.placeholder.com/1200x235/50C878/FFFFFF?text=PAYDAY+SALE+UP+TO+50%+OFF" alt="Payday Sale" class="w-full h-full object-cover">
+                                <div class="absolute bottom-4 left-4 bg-white bg-opacity-80 px-3 py-1 rounded-full text-sm font-bold text-blue-600">
+                                    PAYDAY EXCLUSIVES
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="w-full flex-shrink-0">
+                            <div class="banner-slide bg-blue-400 flex items-center justify-center">
+                                <img src="https://via.placeholder.com/1200x235/4682B4/FFFFFF?text=NEW+ARRIVALS+FROM+JAPAN" alt="New Arrivals" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="w-full flex-shrink-0">
+                            <div class="banner-slide bg-purple-400 flex items-center justify-center">
+                                <img src="https://via.placeholder.com/1200x235/9370DB/FFFFFF?text=FREE+SHIPPING+NATIONWIDE" alt="Free Shipping" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Prev/Next Buttons -->
+                <button @click="activeSlide = activeSlide === 0 ? 2 : activeSlide - 1" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-100 rounded-full p-2 focus:outline-none">
+                    <i class="fas fa-chevron-left text-gray-800"></i>
+                </button>
+                <button @click="activeSlide = activeSlide === 2 ? 0 : activeSlide + 1" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-100 rounded-full p-2 focus:outline-none">
+                    <i class="fas fa-chevron-right text-gray-800"></i>
+                </button>
+                
+                <!-- Indicators -->
+                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    <button @click="activeSlide = 0" :class="{'bg-white': activeSlide === 0, 'bg-gray-400': activeSlide !== 0}" class="w-2 h-2 rounded-full focus:outline-none"></button>
+                    <button @click="activeSlide = 1" :class="{'bg-white': activeSlide === 1, 'bg-gray-400': activeSlide !== 1}" class="w-2 h-2 rounded-full focus:outline-none"></button>
+                    <button @click="activeSlide = 2" :class="{'bg-white': activeSlide === 2, 'bg-gray-400': activeSlide !== 2}" class="w-2 h-2 rounded-full focus:outline-none"></button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Side Banners (1/4 width on desktop) -->
+        <div class="hidden lg:flex flex-col space-y-4">
+            <div class="h-28 bg-blue-100 rounded-lg overflow-hidden shadow-md">
+                <img src="https://via.placeholder.com/600x112/87CEEB/000000?text=UP+TO+60%+OFF" alt="Discount Banner" class="w-full h-full object-cover">
+            </div>
+            <div class="h-28 bg-purple-100 rounded-lg overflow-hidden shadow-md">
+                <img src="https://via.placeholder.com/600x112/DDA0DD/000000?text=MOBILE+DATA+DEALS" alt="Mobile Data Deals" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Category Icons (Similar to Shopee but with blue accents) -->
+    <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+        <div class="grid grid-cols-5 md:grid-cols-10 gap-2">
+            {% for category in categories %}
+                <a href="{% url 'products:category_detail' category.slug %}" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        {% if category.image %}
+                            <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-10 h-10 object-cover rounded-full">
+                        {% else %}
+                            <i class="fas fa-box-open text-blue-600"></i>
+                        {% endif %}
+                    </div>
+                    <span class="text-xs text-gray-700 line-clamp-2">{{ category.name }}</span>
+                </a>
+            {% empty %}
+                <!-- Placeholder categories if none exist -->
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-tag text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Lower Price</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-percent text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Vouchers</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-check text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Daily Pick</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-tshirt text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Fashion</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-home text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Home Goods</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-mobile-alt text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Electronics</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-shipping-fast text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Free Shipping</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-coins text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Coins Rewards</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-laptop text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Gadget Zone</span>
+                </a>
+                <a href="#" class="category-icon flex flex-col items-center justify-center p-2 text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fas fa-store text-blue-600"></i>
+                    </div>
+                    <span class="text-xs text-gray-700">Supermarket</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Flash Sale Section -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+        <div class="bg-blue-600 text-white p-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <h2 class="text-xl font-bold mr-4">FLASH SALE</h2>
+                <div x-data="{ hours: 2, minutes: 45, seconds: 30 }" x-init="setInterval(() => {
+                    if (seconds > 0) {
+                        seconds--;
+                    } else {
+                        seconds = 59;
+                        if (minutes > 0) {
+                            minutes--;
+                        } else {
+                            minutes = 59;
+                            if (hours > 0) hours--;
+                        }
+                    }
+                }, 1000)" class="flex space-x-1">
+                    <div class="flash-sale-timer text-blue-600">
+                        <span x-text="hours.toString().padStart(2, '0')"></span>
+                    </div>
+                    <span class="text-white">:</span>
+                    <div class="flash-sale-timer text-blue-600">
+                        <span x-text="minutes.toString().padStart(2, '0')"></span>
+                    </div>
+                    <span class="text-white">:</span>
+                    <div class="flash-sale-timer text-blue-600">
+                        <span x-text="seconds.toString().padStart(2, '0')"></span>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'products:product_list' %}" class="text-white hover:underline text-sm">See All ></a>
+        </div>
+        
+        <div class="p-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {% for product in featured_products|slice:":6" %}
+                    <div class="product-card bg-white border rounded-lg overflow-hidden">
+                        <a href="{% url 'products:product_detail' product.slug %}">
+                            <div class="h-40 bg-gray-100 relative">
+                                {% if product.images.exists %}
+                                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="h-full w-full object-cover">
+                                {% else %}
+                                    <div class="h-full flex items-center justify-center">
+                                        <i class="fas fa-image text-4xl text-gray-400"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs px-2 py-1">
+                                    -{{ product.discount|default:"30" }}%
+                                </div>
+                            </div>
+                        </a>
+                        <div class="p-2">
+                            <a href="{% url 'products:product_detail' product.slug %}" class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">{{ product.name }}</a>
+                            <div class="flex items-baseline">
+                                <span class="text-blue-600 font-bold">${{ product.price }}</span>
+                                <span class="text-gray-400 text-xs line-through ml-1">${{ product.price|floatformat:2|add:"30" }}</span>
+                            </div>
+                            <div class="mt-1 bg-gray-200 h-2 rounded-full overflow-hidden">
+                                <div class="bg-blue-600 h-full" style="width: 75%"></div>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">75% Sold</div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <!-- Placeholder products if none exist -->
+                    {% for i in "123456" %}
+                        <div class="product-card bg-white border rounded-lg overflow-hidden">
+                            <div class="h-40 bg-gray-100 relative">
+                                <img src="https://via.placeholder.com/200x160" alt="Product" class="h-full w-full object-cover">
+                                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs px-2 py-1">
+                                    -30%
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Japan Surplus Item #{{ forloop.counter }}</div>
+                                <div class="flex items-baseline">
+                                    <span class="text-blue-600 font-bold">$19.99</span>
+                                    <span class="text-gray-400 text-xs line-through ml-1">$29.99</span>
+                                </div>
+                                <div class="mt-1 bg-gray-200 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-blue-600 h-full" style="width: 75%"></div>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">75% Sold</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Featured Collections (Similar to Shopee but with blue theme) -->
+    <div class="mb-6">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-blue-600 text-white p-3 flex items-center justify-between">
+                <h2 class="text-xl font-bold">FEATURED COLLECTIONS</h2>
+                <a href="{% url 'products:product_list' %}" class="text-white hover:underline text-sm">See All ></a>
+            </div>
+            
+            <div class="p-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-blue-100 rounded-lg overflow-hidden shadow-sm">
+                        <a href="#" class="block">
+                            <img src="https://via.placeholder.com/300x150/87CEEB/000000?text=Home+Appliances" alt="Home Appliances" class="w-full h-32 object-cover">
+                            <div class="p-2 text-center font-medium">Home Appliances</div>
+                        </a>
+                    </div>
+                    <div class="bg-green-100 rounded-lg overflow-hidden shadow-sm">
+                        <a href="#" class="block">
+                            <img src="https://via.placeholder.com/300x150/90EE90/000000?text=Kitchen+Items" alt="Kitchen Items" class="w-full h-32 object-cover">
+                            <div class="p-2 text-center font-medium">Kitchen Items</div>
+                        </a>
+                    </div>
+                    <div class="bg-yellow-100 rounded-lg overflow-hidden shadow-sm">
+                        <a href="#" class="block">
+                            <img src="https://via.placeholder.com/300x150/FFFFE0/000000?text=Electronics" alt="Electronics" class="w-full h-32 object-cover">
+                            <div class="p-2 text-center font-medium">Electronics</div>
+                        </a>
+                    </div>
+                    <div class="bg-purple-100 rounded-lg overflow-hidden shadow-sm">
+                        <a href="#" class="block">
+                            <img src="https://via.placeholder.com/300x150/E6E6FA/000000?text=Furniture" alt="Furniture" class="w-full h-32 object-cover">
+                            <div class="p-2 text-center font-medium">Furniture</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Just For You Products -->
+    <div class="mb-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">JUST FOR YOU</h2>
+            <a href="{% url 'products:product_list' %}" class="text-blue-600 hover:underline">See All ></a>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {% for product in featured_products %}
+                <div class="product-card bg-white border rounded-lg overflow-hidden">
+                    <a href="{% url 'products:product_detail' product.slug %}">
+                        <div class="h-40 bg-gray-100">
+                            {% if product.images.exists %}
+                                <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="h-full w-full object-cover">
+                            {% else %}
+                                <div class="h-full flex items-center justify-center">
+                                    <i class="fas fa-image text-4xl text-gray-400"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </a>
+                    <div class="p-2">
+                        <a href="{% url 'products:product_detail' product.slug %}" class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">{{ product.name }}</a>
+                        <div class="flex items-baseline">
+                            <span class="text-blue-600 font-bold">${{ product.price }}</span>
+                        </div>
+                        <div class="flex items-center mt-1">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">Sold {{ product.id|add:"100" }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <!-- Placeholder products if none exist -->
+                {% for i in "123456789012" %}
+                    <div class="product-card bg-white border rounded-lg overflow-hidden">
+                        <div class="h-40 bg-gray-100">
+                            <img src="https://via.placeholder.com/200x160" alt="Product" class="h-full w-full object-cover">
+                        </div>
+                        <div class="p-2">
+                            <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Japan Surplus Item #{{ forloop.counter }}</div>
+                            <div class="flex items-baseline">
+                                <span class="text-blue-600 font-bold">${{ forloop.counter|add:"19" }}.99</span>
+                            </div>
+                            <div class="flex items-center mt-1">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-1">Sold {{ forloop.counter|add:"100" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add any JavaScript needed for the home page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize any components that need JavaScript
+    });
+</script>
+{% endblock %} 

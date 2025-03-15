@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Verify Email - Japan Surplus Shop{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 dark:bg-gray-800 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="flex justify-center">
+            <a href="{% url 'core:home' %}" class="text-blue-600 dark:text-blue-400 text-4xl font-bold">
+                Japan Surplus
+            </a>
+        </div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+            Verify Your Email
+        </h2>
+        <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            We've sent a verification code to <span class="font-medium">{{ email }}</span>
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white dark:bg-gray-700 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            {% if messages %}
+            <div class="mb-6">
+                {% for message in messages %}
+                <div class="rounded-md {% if message.tags == 'success' %}bg-green-50 dark:bg-green-900{% elif message.tags == 'error' %}bg-red-50 dark:bg-red-900{% else %}bg-blue-50 dark:bg-blue-900{% endif %} p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            {% if message.tags == 'success' %}
+                            <i class="fas fa-check-circle text-green-400 dark:text-green-300"></i>
+                            {% elif message.tags == 'error' %}
+                            <i class="fas fa-exclamation-circle text-red-400 dark:text-red-300"></i>
+                            {% else %}
+                            <i class="fas fa-info-circle text-blue-400 dark:text-blue-300"></i>
+                            {% endif %}
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium {% if message.tags == 'success' %}text-green-800 dark:text-green-200{% elif message.tags == 'error' %}text-red-800 dark:text-red-200{% else %}text-blue-800 dark:text-blue-200{% endif %}">
+                                {{ message }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="mb-6 rounded-md bg-blue-50 dark:bg-blue-900 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-blue-400 dark:text-blue-300"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800 dark:text-blue-200">
+                            Email Verification
+                        </h3>
+                        <div class="mt-2 text-sm text-blue-700 dark:text-blue-300">
+                            <p>
+                                Please check your email for the verification code.
+                            </p>
+                            <p class="mt-1 text-xs">
+                                If you don't receive the email within a few minutes, check your spam folder or click "Resend code" below.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="space-y-6" method="POST" action="{% url 'users:verify_otp' %}">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="id_otp" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Enter Verification Code
+                    </label>
+                    <div class="mt-1">
+                        {{ form.otp }}
+                        {% if form.otp.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">
+                            {% for error in form.otp.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        Please enter the 6-digit verification code sent to your email.
+                    </p>
+                </div>
+
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800">
+                        Verify Email
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Didn't receive the code?
+                    <a href="{% url 'users:resend_otp' %}" class="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
+                        Resend code
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

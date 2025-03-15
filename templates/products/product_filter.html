@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Filter Products - Japan Surplus Shop{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 dark:bg-gray-800 min-h-screen">
+    <!-- Search Header -->
+    <div class="bg-blue-600 dark:bg-blue-800 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <h1 class="text-2xl font-bold text-white mb-4 md:mb-0">Product Search</h1>
+                <div class="w-full md:w-1/2 lg:w-2/5">
+                    <form method="get" action="{% url 'product_list' %}" class="flex">
+                        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search for products..." 
+                            class="w-full px-4 py-2 rounded-l-md border-0 focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="bg-white text-blue-600 px-4 py-2 rounded-r-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Tags -->
+    <div class="bg-white dark:bg-gray-700 shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-wrap items-center gap-2">
+                {% if request.GET.q %}
+                <div class="inline-flex items-center bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full px-3 py-1 text-sm">
+                    <span>Search: "{{ request.GET.q }}"</span>
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'q' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="ml-2 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+                {% endif %}
+                
+                {% if request.GET.category %}
+                <div class="inline-flex items-center bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full px-3 py-1 text-sm">
+                    <span>Category: {{ category_name }}</span>
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'category' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="ml-2 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+                {% endif %}
+                
+                {% if request.GET.min_price or request.GET.max_price %}
+                <div class="inline-flex items-center bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full px-3 py-1 text-sm">
+                    <span>Price: {% if request.GET.min_price %}₱{{ request.GET.min_price }}{% else %}₱0{% endif %} - {% if request.GET.max_price %}₱{{ request.GET.max_price }}{% else %}Any{% endif %}</span>
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'min_price' and key != 'max_price' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="ml-2 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+                {% endif %}
+                
+                {% if request.GET.condition %}
+                <div class="inline-flex items-center bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full px-3 py-1 text-sm">
+                    <span>Condition: {{ request.GET.condition|title }}</span>
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'condition' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="ml-2 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+                {% endif %}
+                
+                {% if request.GET.q or request.GET.category or request.GET.min_price or request.GET.max_price or request.GET.condition %}
+                <a href="{% url 'product_list' %}" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200">
+                    Clear all filters
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Filters Sidebar -->
+            <div class="w-full md:w-64 bg-white dark:bg-gray-700 rounded-lg shadow-md p-4">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Filters</h2>
+                
+                <form method="get" action="{% url 'product_list' %}">
+                    {% if request.GET.q %}
+                    <input type="hidden" name="q" value="{{ request.GET.q }}">
+                    {% endif %}
+                    
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Price Range</h3>
+                        <div class="flex items-center space-x-2">
+                            <input type="number" name="min_price" placeholder="Min" value="{{ request.GET.min_price }}" 
+                                class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500">
+                            <span class="text-gray-500 dark:text-gray-400">-</span>
+                            <input type="number" name="max_price" placeholder="Max" value="{{ request.GET.max_price }}"
+                                class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categories</h3>
+                        <div class="space-y-2 max-h-48 overflow-y-auto">
+                            {% for category in all_categories %}
+                            <div class="flex items-center">
+                                <input id="category-{{ category.id }}" name="category" type="checkbox" value="{{ category.id }}"
+                                    {% if category.id|stringformat:"i" in request.GET.category|default:"" %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-{{ category.id }}" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    {{ category.name }}
+                                </label>
+                            </div>
+                            {% empty %}
+                            <div class="flex items-center">
+                                <input id="category-1" name="category" type="checkbox" value="1"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-1" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Electronics
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-2" name="category" type="checkbox" value="2"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-2" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Clothing
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-3" name="category" type="checkbox" value="3"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-3" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Auto Parts
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-4" name="category" type="checkbox" value="4"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-4" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Furniture
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-5" name="category" type="checkbox" value="5"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-5" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Kitchenware
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Condition</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="condition-new" name="condition" type="radio" value="new"
+                                    {% if request.GET.condition == 'new' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-new" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    New
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="condition-like-new" name="condition" type="radio" value="like_new"
+                                    {% if request.GET.condition == 'like_new' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-like-new" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Like New
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="condition-good" name="condition" type="radio" value="good"
+                                    {% if request.GET.condition == 'good' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-good" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Good
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="condition-fair" name="condition" type="radio" value="fair"
+                                    {% if request.GET.condition == 'fair' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-fair" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Fair
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rating</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="rating-4" name="rating" type="radio" value="4"
+                                    {% if request.GET.rating == '4' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="rating-4" class="ml-2 text-sm text-gray-700 dark:text-gray-300 flex items-center">
+                                    <span class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                    <span class="ml-1">& Up</span>
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="rating-3" name="rating" type="radio" value="3"
+                                    {% if request.GET.rating == '3' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="rating-3" class="ml-2 text-sm text-gray-700 dark:text-gray-300 flex items-center">
+                                    <span class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                    <span class="ml-1">& Up</span>
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="rating-2" name="rating" type="radio" value="2"
+                                    {% if request.GET.rating == '2' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="rating-2" class="ml-2 text-sm text-gray-700 dark:text-gray-300 flex items-center">
+                                    <span class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                    <span class="ml-1">& Up</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                        Apply Filters
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+                        {% if products_count %}
+                        {{ products_count }} Results
+                        {% else %}
+                        Products
+                        {% endif %}
+                    </h2>
+                    <div class="flex items-center space-x-2">
+                        <label for="sort" class="text-sm text-gray-700 dark:text-gray-300">Sort by:</label>
+                        <select id="sort" name="sort" onchange="this.form.submit()" class="text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest</option>
+                            <option value="price_low" {% if request.GET.sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+                            <option value="price_high" {% if request.GET.sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+                            <option value="popular" {% if request.GET.sort == 'popular' %}selected{% endif %}>Most Popular</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {% for product in products %}
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <a href="{{ product.get_absolute_url }}">
+                            <div class="relative pb-[100%]">
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover">
+                                {% else %}
+                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                        <i class="fas fa-image text-4xl"></i>
+                                    </span>
+                                </div>
+                                {% endif %}
+                                {% if product.discount_percentage > 0 %}
+                                <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                    -{{ product.discount_percentage }}%
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">{{ product.name }}</h3>
+                                <div class="flex items-center mb-1">
+                                    {% if product.discount_price %}
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱{{ product.discount_price }}</span>
+                                    <span class="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">₱{{ product.price }}</span>
+                                    {% else %}
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱{{ product.price }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                        {{ product.average_rating|default:"0.0" }}
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span>{{ product.sold|default:"0" }} sold</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <div class="col-span-full py-8 text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 mb-4">
+                            <i class="fas fa-search text-gray-400 dark:text-gray-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-1">No products found</h3>
+                        <p class="text-gray-500 dark:text-gray-400">Try adjusting your search or filter criteria</p>
+                        <a href="{% url 'product_list' %}" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Clear all filters
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                {% if is_paginated %}
+                <div class="mt-8 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <span class="sr-only">Previous</span>
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-blue-50 dark:bg-blue-900 text-sm font-medium text-blue-600 dark:text-blue-200">
+                                {{ i }}
+                            </span>
+                            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                            <a href="?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                {{ i }}
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <span class="sr-only">Next</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        {% endif %}
+                    </nav>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

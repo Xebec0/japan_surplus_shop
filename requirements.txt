@@ -1,0 +1,15 @@
+Django
+djangorestframework
+Pillow
+psycopg2
+django-allauth
+django-crispy-forms
+crispy-bootstrap5
+django-filter
+django-environ
+gunicorn
+whitenoise
+dj-database-url
+django-storages
+boto3
+django-cors-headers 

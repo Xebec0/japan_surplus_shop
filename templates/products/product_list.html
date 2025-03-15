@@ -1,0 +1,400 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Products - Japan Surplus Shop{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 dark:bg-gray-800 min-h-screen">
+    <!-- Hero Banner -->
+    <div class="relative bg-blue-600 dark:bg-blue-800 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 bg-blue-600 dark:bg-blue-800 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                <div class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                            <span class="block">Quality Japanese</span>
+                            <span class="block text-yellow-400">Surplus Products</span>
+                        </h1>
+                        <p class="mt-3 text-base text-white sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            Discover authentic Japanese surplus items at unbeatable prices. From electronics to home goods, we have everything you need.
+                        </p>
+                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                                    Shop Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1480796927426-f609979314bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80" alt="Japan cityscape">
+        </div>
+    </div>
+
+    <!-- Category Navigation -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex overflow-x-auto pb-2 space-x-4 scrollbar-hide">
+            {% for category in categories %}
+            <a href="?category={{ category.slug }}" class="flex-shrink-0 group">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                    <span class="text-blue-600 dark:text-blue-400 text-2xl">
+                        <i class="fas fa-{{ category.icon|default:'tag' }}"></i>
+                    </span>
+                </div>
+                <p class="mt-2 text-xs text-center text-gray-700 dark:text-gray-300">{{ category.name }}</p>
+            </a>
+            {% empty %}
+            <a href="#" class="flex-shrink-0 group">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                    <span class="text-blue-600 dark:text-blue-400 text-2xl">
+                        <i class="fas fa-mobile-alt"></i>
+                    </span>
+                </div>
+                <p class="mt-2 text-xs text-center text-gray-700 dark:text-gray-300">Electronics</p>
+            </a>
+            <a href="#" class="flex-shrink-0 group">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                    <span class="text-blue-600 dark:text-blue-400 text-2xl">
+                        <i class="fas fa-tshirt"></i>
+                    </span>
+                </div>
+                <p class="mt-2 text-xs text-center text-gray-700 dark:text-gray-300">Clothing</p>
+            </a>
+            <a href="#" class="flex-shrink-0 group">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                    <span class="text-blue-600 dark:text-blue-400 text-2xl">
+                        <i class="fas fa-car"></i>
+                    </span>
+                </div>
+                <p class="mt-2 text-xs text-center text-gray-700 dark:text-gray-300">Auto Parts</p>
+            </a>
+            <a href="#" class="flex-shrink-0 group">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                    <span class="text-blue-600 dark:text-blue-400 text-2xl">
+                        <i class="fas fa-couch"></i>
+                    </span>
+                </div>
+                <p class="mt-2 text-xs text-center text-gray-700 dark:text-gray-300">Furniture</p>
+            </a>
+            <a href="#" class="flex-shrink-0 group">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                    <span class="text-blue-600 dark:text-blue-400 text-2xl">
+                        <i class="fas fa-utensils"></i>
+                    </span>
+                </div>
+                <p class="mt-2 text-xs text-center text-gray-700 dark:text-gray-300">Kitchenware</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Filters Sidebar -->
+            <div class="w-full md:w-64 bg-white dark:bg-gray-700 rounded-lg shadow-md p-4">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Filters</h2>
+                
+                <form method="get" action="{% url 'product_list' %}">
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Price Range</h3>
+                        <div class="flex items-center space-x-2">
+                            <input type="number" name="min_price" placeholder="Min" value="{{ request.GET.min_price }}" 
+                                class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500">
+                            <span class="text-gray-500 dark:text-gray-400">-</span>
+                            <input type="number" name="max_price" placeholder="Max" value="{{ request.GET.max_price }}"
+                                class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categories</h3>
+                        <div class="space-y-2">
+                            {% for category in all_categories %}
+                            <div class="flex items-center">
+                                <input id="category-{{ category.id }}" name="category" type="checkbox" value="{{ category.id }}"
+                                    {% if category.id|stringformat:"i" in request.GET.category|default:"" %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-{{ category.id }}" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    {{ category.name }}
+                                </label>
+                            </div>
+                            {% empty %}
+                            <div class="flex items-center">
+                                <input id="category-1" name="category" type="checkbox" value="1"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-1" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Electronics
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-2" name="category" type="checkbox" value="2"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-2" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Clothing
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-3" name="category" type="checkbox" value="3"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-3" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Auto Parts
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Condition</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="condition-new" name="condition" type="radio" value="new"
+                                    {% if request.GET.condition == 'new' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-new" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    New
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="condition-like-new" name="condition" type="radio" value="like_new"
+                                    {% if request.GET.condition == 'like_new' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-like-new" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Like New
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="condition-good" name="condition" type="radio" value="good"
+                                    {% if request.GET.condition == 'good' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-good" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Good
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="condition-fair" name="condition" type="radio" value="fair"
+                                    {% if request.GET.condition == 'fair' %} checked {% endif %}
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="condition-fair" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                    Fair
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                        Apply Filters
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="flex-1" id="products">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Products</h2>
+                    <div class="flex items-center space-x-2">
+                        <label for="sort" class="text-sm text-gray-700 dark:text-gray-300">Sort by:</label>
+                        <select id="sort" name="sort" onchange="this.form.submit()" class="text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest</option>
+                            <option value="price_low" {% if request.GET.sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+                            <option value="price_high" {% if request.GET.sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+                            <option value="popular" {% if request.GET.sort == 'popular' %}selected{% endif %}>Most Popular</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {% for product in products %}
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <a href="{{ product.get_absolute_url }}">
+                            <div class="relative pb-[100%]">
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover">
+                                {% else %}
+                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                        <i class="fas fa-image text-4xl"></i>
+                                    </span>
+                                </div>
+                                {% endif %}
+                                {% if product.discount_percentage > 0 %}
+                                <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                    -{{ product.discount_percentage }}%
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">{{ product.name }}</h3>
+                                <div class="flex items-center mb-1">
+                                    {% if product.discount_price %}
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱{{ product.discount_price }}</span>
+                                    <span class="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">₱{{ product.price }}</span>
+                                    {% else %}
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱{{ product.price }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                        {{ product.average_rating|default:"0.0" }}
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span>{{ product.sold|default:"0" }} sold</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <!-- Sample products when no products are available -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <a href="#">
+                            <div class="relative pb-[100%]">
+                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                        <i class="fas fa-image text-4xl"></i>
+                                    </span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                    -20%
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">Sony PlayStation 5 (Japanese Version)</h3>
+                                <div class="flex items-center mb-1">
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱24,000</span>
+                                    <span class="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">₱30,000</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                        4.8
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span>120 sold</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <a href="#">
+                            <div class="relative pb-[100%]">
+                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                        <i class="fas fa-image text-4xl"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">Vintage Japanese Denim Jacket</h3>
+                                <div class="flex items-center mb-1">
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱3,500</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                        4.5
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span>85 sold</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <a href="#">
+                            <div class="relative pb-[100%]">
+                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                        <i class="fas fa-image text-4xl"></i>
+                                    </span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                    -15%
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">Toyota Genuine Spare Parts Kit</h3>
+                                <div class="flex items-center mb-1">
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱8,500</span>
+                                    <span class="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">₱10,000</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                        4.7
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span>42 sold</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <a href="#">
+                            <div class="relative pb-[100%]">
+                                <div class="absolute inset-0 w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                        <i class="fas fa-image text-4xl"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-sm font-medium text-gray-800 dark:text-white mb-1 line-clamp-2">Japanese Ceramic Tea Set</h3>
+                                <div class="flex items-center mb-1">
+                                    <span class="text-lg font-bold text-blue-600 dark:text-blue-400">₱2,800</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                        4.9
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span>67 sold</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                {% if is_paginated %}
+                <div class="mt-8 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <span class="sr-only">Previous</span>
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-blue-50 dark:bg-blue-900 text-sm font-medium text-blue-600 dark:text-blue-200">
+                                {{ i }}
+                            </span>
+                            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                            <a href="?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                {{ i }}
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <span class="sr-only">Next</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        {% endif %}
+                    </nav>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Surplus Shop - Placeholder Image Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #f97316;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .instructions {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .placeholder {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .placeholder canvas {
+            width: 100%;
+            display: block;
+        }
+        .controls {
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        button {
+            background-color: #f97316;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #ea580c;
+        }
+        .download-all {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 24px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Japan Surplus Shop - Placeholder Images</h1>
+        
+        <div class="instructions">
+            <h2>Instructions:</h2>
+            <p>Below are placeholder images for your Japan Surplus Shop website. You can:</p>
+            <ol>
+                <li>Download individual images by clicking the "Download" button below each image</li>
+                <li>Right-click on any image and select "Save Image As..."</li>
+                <li>Use these images temporarily until you have actual product photos</li>
+            </ol>
+            <p>These placeholders include the Japan Surplus Shop branding and are sized appropriately for your website.</p>
+        </div>
+        
+        <div class="grid">
+            <!-- Product Placeholders -->
+            <div class="placeholder">
+                <canvas id="product1" width="600" height="600"></canvas>
+                <div class="controls">
+                    <button onclick="downloadImage('product1', 'product-placeholder-1.jpg')">Download</button>
+                </div>
+            </div>
+            
+            <div class="placeholder">
+                <canvas id="product2" width="600" height="600"></canvas>
+                <div class="controls">
+                    <button onclick="downloadImage('product2', 'product-placeholder-2.jpg')">Download</button>
+                </div>
+            </div>
+            
+            <div class="placeholder">
+                <canvas id="product3" width="600" height="600"></canvas>
+                <div class="controls">
+                    <button onclick="downloadImage('product3', 'product-placeholder-3.jpg')">Download</button>
+                </div>
+            </div>
+            
+            <div class="placeholder">
+                <canvas id="product4" width="600" height="600"></canvas>
+                <div class="controls">
+                    <button onclick="downloadImage('product4', 'product-placeholder-4.jpg')">Download</button>
+                </div>
+            </div>
+            
+            <!-- Banner Placeholders -->
+            <div class="placeholder">
+                <canvas id="banner1" width="1200" height="400"></canvas>
+                <div class="controls">
+                    <button onclick="downloadImage('banner1', 'banner-placeholder-1.jpg')">Download</button>
+                </div>
+            </div>
+            
+            <div class="placeholder">
+                <canvas id="about-banner" width="1200" height="600"></canvas>
+                <div class="controls">
+                    <button onclick="downloadImage('about-banner', 'about-banner.jpg')">Download About Banner</button>
+                </div>
+            </div>
+        </div>
+        
+        <button class="download-all" onclick="downloadAll()">Download All Images</button>
+    </div>
+
+    <script>
+        // Colors
+        const colors = {
+            primary: '#f97316', // Orange
+            secondary: '#0f172a', // Dark blue
+            light: '#f8fafc',
+            dark: '#334155'
+        };
+        
+        // Patterns
+        const patterns = [
+            drawGrid,
+            drawDiagonalStripes,
+            drawDots,
+            drawCrossHatch
+        ];
+        
+        // Icons representing Japanese products
+        const icons = [
+            drawElectronics,
+            drawFurniture,
+            drawKitchenware,
+            drawFashion
+        ];
+        
+        // Initialize all canvases when page loads
+        window.onload = function() {
+            // Product placeholders
+            drawProductPlaceholder('product1', 0);
+            drawProductPlaceholder('product2', 1);
+            drawProductPlaceholder('product3', 2);
+            drawProductPlaceholder('product4', 3);
+            
+            // Banner placeholders
+            drawBannerPlaceholder('banner1');
+            
+            // About banner
+            drawAboutBanner('about-banner');
+        };
+        
+        // Draw product placeholder
+        function drawProductPlaceholder(canvasId, patternIndex) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Background
+            ctx.fillStyle = colors.light;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Pattern
+            patterns[patternIndex % patterns.length](ctx, width, height, colors.primary);
+            
+            // Icon
+            icons[patternIndex % icons.length](ctx, width, height);
+            
+            // Logo/Text
+            drawLogo(ctx, width, height);
+        }
+        
+        // Draw banner placeholder
+        function drawBannerPlaceholder(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Gradient background
+            const gradient = ctx.createLinearGradient(0, 0, width, 0);
+            gradient.addColorStop(0, colors.primary);
+            gradient.addColorStop(1, '#ea580c');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Overlay pattern
+            drawDiagonalStripes(ctx, width, height, 'rgba(255,255,255,0.1)');
+            
+            // Text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 60px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('JAPAN SURPLUS SHOP', width/2, height/2 - 30);
+            
+            ctx.font = '30px Arial';
+            ctx.fillText('Quality Japanese Products at Affordable Prices', width/2, height/2 + 30);
+        }
+        
+        // Draw about banner
+        function drawAboutBanner(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Background with Japanese-inspired pattern
+            ctx.fillStyle = colors.secondary;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Draw Japanese-inspired wave pattern
+            drawWavePattern(ctx, width, height);
+            
+            // Overlay with semi-transparent rectangle
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 70px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('About Us', width/2, height/2 - 40);
+            
+            ctx.font = '30px Arial';
+            ctx.fillText('Our Story, Values & Mission', width/2, height/2 + 40);
+            
+            // Small Japan flag icon
+            drawJapanFlag(ctx, width/2 - 200, height/2 - 40, 40);
+        }
+        
+        // Pattern functions
+        function drawGrid(ctx, width, height, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            
+            const gridSize = 30;
+            
+            // Draw vertical lines
+            for (let x = gridSize; x < width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            
+            // Draw horizontal lines
+            for (let y = gridSize; y < height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+        }
+        
+        function drawDiagonalStripes(ctx, width, height, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            
+            const stripeGap = 30;
+            const diagonalLength = Math.sqrt(width*width + height*height);
+            
+            for (let i = -diagonalLength; i < diagonalLength; i += stripeGap) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i + height, height);
+                ctx.stroke();
+            }
+        }
+        
+        function drawDots(ctx, width, height, color) {
+            ctx.fillStyle = color;
+            
+            const dotSize = 5;
+            const dotGap = 30;
+            
+            for (let x = dotGap; x < width; x += dotGap) {
+                for (let y = dotGap; y < height; y += dotGap) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, dotSize, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+        
+        function drawCrossHatch(ctx, width, height, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            
+            const gap = 30;
+            
+            // Draw diagonal lines in one direction
+            for (let i = -height; i < width; i += gap) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i + height, height);
+                ctx.stroke();
+            }
+            
+            // Draw diagonal lines in the other direction
+            for (let i = 0; i < width + height; i += gap) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i - height, height);
+                ctx.stroke();
+            }
+        }
+        
+        function drawWavePattern(ctx, width, height) {
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+            ctx.lineWidth = 3;
+            
+            const waveHeight = 20;
+            const waveLength = 40;
+            
+            for (let y = 0; y < height; y += 60) {
+                ctx.beginPath();
+                
+                for (let x = 0; x < width; x += 1) {
+                    const yOffset = waveHeight * Math.sin((x / waveLength) * Math.PI);
+                    
+                    if (x === 0) {
+                        ctx.moveTo(x, y + yOffset);
+                    } else {
+                        ctx.lineTo(x, y + yOffset);
+                    }
+                }
+                
+                ctx.stroke();
+            }
+        }
+        
+        // Icon functions
+        function drawElectronics(ctx, width, height) {
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const size = Math.min(width, height) * 0.3;
+            
+            ctx.fillStyle = colors.secondary;
+            
+            // Draw a TV/monitor
+            ctx.fillRect(centerX - size/2, centerY - size/2, size, size * 0.7);
+            
+            // Stand
+            ctx.fillRect(centerX - size/4, centerY + size/4, size/2, size/10);
+            ctx.fillRect(centerX - size/6, centerY + size/4, size/3, size/5);
+            
+            // Screen
+            ctx.fillStyle = colors.light;
+            ctx.fillRect(centerX - size/2 + 10, centerY - size/2 + 10, size - 20, size * 0.7 - 20);
+        }
+        
+        function drawFurniture(ctx, width, height) {
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const size = Math.min(width, height) * 0.4;
+            
+            ctx.fillStyle = colors.secondary;
+            
+            // Draw a chair
+            // Seat
+            ctx.fillRect(centerX - size/2, centerY, size, size/4);
+            
+            // Back
+            ctx.fillRect(centerX - size/2, centerY - size/2, size/6, size/2);
+            
+            // Legs
+            ctx.fillRect(centerX - size/2, centerY + size/4, size/10, size/3);
+            ctx.fillRect(centerX + size/2 - size/10, centerY + size/4, size/10, size/3);
+        }
+        
+        function drawKitchenware(ctx, width, height) {
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const size = Math.min(width, height) * 0.3;
+            
+            ctx.fillStyle = colors.secondary;
+            
+            // Draw a pot
+            ctx.beginPath();
+            ctx.arc(centerX, centerY + size/4, size/2, 0, Math.PI, false);
+            ctx.fill();
+            
+            // Pot body
+            ctx.fillRect(centerX - size/2, centerY - size/4, size, size/2);
+            
+            // Handles
+            ctx.fillRect(centerX - size/2 - size/6, centerY, size/6, size/10);
+            ctx.fillRect(centerX + size/2, centerY, size/6, size/10);
+            
+            // Lid
+            ctx.beginPath();
+            ctx.arc(centerX, centerY - size/4, size/2, Math.PI, 2 * Math.PI, false);
+            ctx.fill();
+            
+            // Lid handle
+            ctx.fillRect(centerX - size/10, centerY - size/4 - size/4, size/5, size/10);
+        }
+        
+        function drawFashion(ctx, width, height) {
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const size = Math.min(width, height) * 0.4;
+            
+            ctx.fillStyle = colors.secondary;
+            
+            // Draw a t-shirt
+            // Shoulders
+            ctx.beginPath();
+            ctx.moveTo(centerX - size/2, centerY - size/3);
+            ctx.lineTo(centerX - size/4, centerY - size/2);
+            ctx.lineTo(centerX + size/4, centerY - size/2);
+            ctx.lineTo(centerX + size/2, centerY - size/3);
+            
+            // Body
+            ctx.lineTo(centerX + size/2, centerY + size/2);
+            ctx.lineTo(centerX - size/2, centerY + size/2);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Sleeves
+            ctx.beginPath();
+            ctx.moveTo(centerX - size/2, centerY - size/3);
+            ctx.lineTo(centerX - size/2 - size/4, centerY);
+            ctx.lineTo(centerX - size/2, centerY);
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX + size/2, centerY - size/3);
+            ctx.lineTo(centerX + size/2 + size/4, centerY);
+            ctx.lineTo(centerX + size/2, centerY);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Collar
+            ctx.beginPath();
+            ctx.moveTo(centerX - size/6, centerY - size/2);
+            ctx.lineTo(centerX, centerY - size/3);
+            ctx.lineTo(centerX + size/6, centerY - size/2);
+            ctx.stroke();
+        }
+        
+        // Draw Japan flag
+        function drawJapanFlag(ctx, x, y, size) {
+            // White background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(x - size, y - size/2, size * 2, size);
+            
+            // Red circle
+            ctx.fillStyle = '#bc002d';
+            ctx.beginPath();
+            ctx.arc(x, y, size/2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // Draw logo
+        function drawLogo(ctx, width, height) {
+            const logoSize = Math.min(width, height) * 0.2;
+            const x = width / 2;
+            const y = height * 0.85;
+            
+            // Background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.beginPath();
+            ctx.arc(x, y, logoSize, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Text
+            ctx.fillStyle = colors.primary;
+            ctx.font = `bold ${logoSize * 0.3}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('JAPAN', x, y - logoSize * 0.15);
+            ctx.fillText('SURPLUS', x, y + logoSize * 0.15);
+            
+            // Small Japan flag
+            drawJapanFlag(ctx, x - logoSize * 0.5, y, logoSize * 0.2);
+        }
+        
+        // Download functions
+        function downloadImage(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.8);
+            link.click();
+            
+            // Add confetti effect
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+        
+        function downloadAll() {
+            const canvasIds = ['product1', 'product2', 'product3', 'product4', 'banner1', 'about-banner'];
+            const filenames = [
+                'product-placeholder-1.jpg',
+                'product-placeholder-2.jpg',
+                'product-placeholder-3.jpg',
+                'product-placeholder-4.jpg',
+                'banner-placeholder-1.jpg',
+                'about-banner.jpg'
+            ];
+            
+            for (let i = 0; i < canvasIds.length; i++) {
+                setTimeout(() => {
+                    downloadImage(canvasIds[i], filenames[i]);
+                }, i * 300);
+            }
+        }
+    </script>
+</body>
+</html> 
