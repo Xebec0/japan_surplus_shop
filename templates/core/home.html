@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Japan Surplus Shop - Online Shopping{% endblock %}
 
 {% block extra_css %}
@@ -62,7 +64,7 @@
                         <!-- Slide 1 -->
                         <div class="w-full flex-shrink-0">
                             <div class="banner-slide bg-green-400 flex items-center justify-center relative">
-                                <img src="https://via.placeholder.com/1200x235/50C878/FFFFFF?text=PAYDAY+SALE+UP+TO+50%+OFF" alt="Payday Sale" class="w-full h-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&h=235&q=80" alt="Payday Sale" class="w-full h-full object-cover">
                                 <div class="absolute bottom-4 left-4 bg-white bg-opacity-80 px-3 py-1 rounded-full text-sm font-bold text-blue-600">
                                     PAYDAY EXCLUSIVES
                                 </div>
@@ -71,13 +73,13 @@
                         <!-- Slide 2 -->
                         <div class="w-full flex-shrink-0">
                             <div class="banner-slide bg-blue-400 flex items-center justify-center">
-                                <img src="https://via.placeholder.com/1200x235/4682B4/FFFFFF?text=NEW+ARRIVALS+FROM+JAPAN" alt="New Arrivals" class="w-full h-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1480796927426-f609979314bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&h=235&q=80" alt="New Arrivals" class="w-full h-full object-cover">
                             </div>
                         </div>
                         <!-- Slide 3 -->
                         <div class="w-full flex-shrink-0">
                             <div class="banner-slide bg-purple-400 flex items-center justify-center">
-                                <img src="https://via.placeholder.com/1200x235/9370DB/FFFFFF?text=FREE+SHIPPING+NATIONWIDE" alt="Free Shipping" class="w-full h-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&h=235&q=80" alt="Free Shipping" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
@@ -103,10 +105,10 @@
         <!-- Side Banners (1/4 width on desktop) -->
         <div class="hidden lg:flex flex-col space-y-4">
             <div class="h-28 bg-blue-100 rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/600x112/87CEEB/000000?text=UP+TO+60%+OFF" alt="Discount Banner" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=112&q=80" alt="Discount Banner" class="w-full h-full object-cover">
             </div>
             <div class="h-28 bg-purple-100 rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/600x112/DDA0DD/000000?text=MOBILE+DATA+DEALS" alt="Mobile Data Deals" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=112&q=80" alt="Mobile Data Deals" class="w-full h-full object-cover">
             </div>
         </div>
     </div>
@@ -224,7 +226,6 @@
             </div>
             <a href="{% url 'products:product_list' %}" class="text-white hover:underline text-sm">See All ></a>
         </div>
-        
         <div class="p-4">
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {% for product in featured_products|slice:":6" %}
@@ -234,9 +235,7 @@
                                 {% if product.images.exists %}
                                     <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="h-full w-full object-cover">
                                 {% else %}
-                                    <div class="h-full w-full">
-                                        {% include 'products/product_placeholder.html' with use_svg=True category=product.category.name|default:"general"|lower %}
-                                    </div>
+                                    <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="{{ product.name }}" class="h-full w-full object-cover">
                                 {% endif %}
                                 <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs px-2 py-1">
                                     -{{ product.discount|default:"30" }}%
@@ -260,7 +259,22 @@
                     {% for i in "123456" %}
                         <div class="product-card bg-white border rounded-lg overflow-hidden">
                             <div class="h-40 bg-gray-100 relative">
-                                <img src="https://via.placeholder.com/200x160" alt="Product" class="h-full w-full object-cover">
+                                <!-- Replace with working Unsplash images using specific photo IDs -->
+                                {% with forloop.counter|stringformat:"s" as counter %}
+                                    {% if counter == "1" %}
+                                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                    {% elif counter == "2" %}
+                                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                    {% elif counter == "3" %}
+                                        <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                    {% elif counter == "4" %}
+                                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                    {% elif counter == "5" %}
+                                        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                    {% else %}
+                                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                    {% endif %}
+                                {% endwith %}
                                 <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs px-2 py-1">
                                     -30%
                                 </div>
@@ -295,25 +309,25 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="bg-blue-100 rounded-lg overflow-hidden shadow-sm">
                         <a href="#" class="block">
-                            <img src="https://via.placeholder.com/300x150/87CEEB/000000?text=Home+Appliances" alt="Home Appliances" class="w-full h-32 object-cover">
+                            <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=150&q=80" alt="Home Appliances" class="w-full h-32 object-cover">
                             <div class="p-2 text-center font-medium">Home Appliances</div>
                         </a>
                     </div>
                     <div class="bg-green-100 rounded-lg overflow-hidden shadow-sm">
                         <a href="#" class="block">
-                            <img src="https://via.placeholder.com/300x150/90EE90/000000?text=Kitchen+Items" alt="Kitchen Items" class="w-full h-32 object-cover">
+                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=150&q=80" alt="Kitchen Items" class="w-full h-32 object-cover">
                             <div class="p-2 text-center font-medium">Kitchen Items</div>
                         </a>
                     </div>
                     <div class="bg-yellow-100 rounded-lg overflow-hidden shadow-sm">
                         <a href="#" class="block">
-                            <img src="https://via.placeholder.com/300x150/FFFFE0/000000?text=Electronics" alt="Electronics" class="w-full h-32 object-cover">
+                            <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=150&q=80" alt="Electronics" class="w-full h-32 object-cover">
                             <div class="p-2 text-center font-medium">Electronics</div>
                         </a>
                     </div>
                     <div class="bg-purple-100 rounded-lg overflow-hidden shadow-sm">
                         <a href="#" class="block">
-                            <img src="https://via.placeholder.com/300x150/E6E6FA/000000?text=Furniture" alt="Furniture" class="w-full h-32 object-cover">
+                            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=150&q=80" alt="Furniture" class="w-full h-32 object-cover">
                             <div class="p-2 text-center font-medium">Furniture</div>
                         </a>
                     </div>
@@ -337,9 +351,7 @@
                             {% if product.images.exists %}
                                 <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="h-full w-full object-cover">
                             {% else %}
-                                <div class="h-full w-full">
-                                    {% include 'products/product_placeholder.html' %}
-                                </div>
+                                <img src="https://images.unsplash.com/photo-{{ product.id|add:1526170000000 }}?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="{{ product.name }}" class="h-full w-full object-cover">
                             {% endif %}
                         </div>
                     </a>
@@ -360,15 +372,68 @@
                         </div>
                     </div>
                 </div>
-            {% empty %}
+                {% empty %}
                 <!-- Placeholder products if none exist -->
                 {% for i in "123456789012" %}
                     <div class="product-card bg-white border rounded-lg overflow-hidden">
                         <div class="h-40 bg-gray-100">
-                            <img src="https://via.placeholder.com/200x160" alt="Product" class="h-full w-full object-cover">
+                            <!-- Replace with working Unsplash images using specific photo IDs -->
+                            {% with forloop.counter|stringformat:"s" as counter %}
+                                {% if counter == "1" %}
+                                    <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "2" %}
+                                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "3" %}
+                                    <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "4" %}
+                                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "5" %}
+                                    <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "6" %}
+                                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "7" %}
+                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "8" %}
+                                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "9" %}
+                                    <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "10" %}
+                                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% elif counter == "11" %}
+                                    <img src="https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% else %}
+                                    <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=400&q=80" alt="Product" class="h-full w-full object-cover">
+                                {% endif %}
+                            {% endwith %}
                         </div>
                         <div class="p-2">
-                            <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Japan Surplus Item #{{ forloop.counter }}</div>
+                            {% with forloop.counter|stringformat:"s" as counter %}
+                                {% if counter == "1" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Vintage Film Camera - Collector's Edition</div>
+                                {% elif counter == "2" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Modern Green Sofa - Japanese Design</div>
+                                {% elif counter == "3" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Premium Headphones - Studio Quality</div>
+                                {% elif counter == "4" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Japanese Kitchen Knife Set - Professional Grade</div>
+                                {% elif counter == "5" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Minimalist Wooden Chair - Handcrafted</div>
+                                {% elif counter == "6" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Red Nike Sneakers - Limited Edition</div>
+                                {% elif counter == "7" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Smart Watch - Fitness Tracker</div>
+                                {% elif counter == "8" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Vintage Typewriter - Fully Restored</div>
+                                {% elif counter == "9" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Luxury Wristwatch - Japanese Movement</div>
+                                {% elif counter == "10" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Designer Sunglasses - UV Protection</div>
+                                {% elif counter == "11" %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Mechanical Keyboard - Cherry MX Switches</div>
+                                {% else %}
+                                    <div class="text-sm text-gray-800 line-clamp-2 h-10 mb-1">Wireless Earbuds - Noise Cancelling</div>
+                                {% endif %}
+                            {% endwith %}
                             <div class="flex items-baseline">
                                 <span class="text-blue-600 font-bold">${{ forloop.counter|add:"19" }}.99</span>
                             </div>
@@ -385,7 +450,8 @@
                         </div>
                     </div>
                 {% endfor %}
-            {% endfor %}
+                {% endfor %}
+                
         </div>
     </div>
 {% endblock %}
@@ -395,6 +461,7 @@
     // Add any JavaScript needed for the home page
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize any components that need JavaScript
+        console.log('Home page loaded successfully with external images');
     });
 </script>
-{% endblock %} 
+{% endblock %}
